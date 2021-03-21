@@ -1,0 +1,454 @@
+   !!----------------------------------------------------------------------
+   !!                     ***  trabbl_adv.h90  ***
+   !!----------------------------------------------------------------------
+   !! History :  8.5  !  02-12  (A. de Miranda, G. Madec)  Original Code 
+   !!            9.0  !  04-01  (A. de Miranda, G. Madec, J.M. Molines )
+   !!----------------------------------------------------------------------     
+
+   !!----------------------------------------------------------------------
+   !!   OPA 9.0 , LOCEAN-IPSL (2005) 
+   !! $Id: trabbl_adv.h90 1601 2009-08-11 10:09:19Z ctlod $ 
+   !! Software governed by the CeCILL licence (modipsl/doc/NEMO_CeCILL.txt)
+   !!----------------------------------------------------------------------
+
+   SUBROUTINE tra_bbl_adv( kt )
+      !!----------------------------------------------------------------------
+      !!                  ***  ROUTINE tra_bbl_adv  ***
+      !!                   
+      !! ** Purpose :   Compute the before tracer (t & s) trend associated 
+      !!     with the bottom boundary layer and add it to the general trend
+      !!     of tracer equations. The bottom boundary layer is supposed to be 
+      !!     both an advective and diffusive bottom boundary layer.
+      !!
+      !! ** Method  :   Computes the bottom boundary horizontal and vertical 
+      !!      advection terms. Add it to the general trend : ta =ta + adv_bbl.
+      !!        When the product grad( rho) * grad(h) < 0 (where grad is a
+      !!      along bottom slope gradient) an additional lateral 2nd order
+      !!      diffusion along the bottom slope is added to the general
+      !!      tracer trend, otherwise the additional trend is set to 0.
+      !!      Second order operator (laplacian type) with variable coefficient
+      !!      computed as follow for temperature (idem on s):
+      !!         difft = 1/(e1t*e2t*e3t) { di-1[ ahbt e2u*e3u/e1u di[ztb] ]
+      !!                                 + dj-1[ ahbt e1v*e3v/e2v dj[ztb] ] }
+      !!      where ztb is a 2D array: the bottom ocean te;perature and ahtb
+      !!      is a time and space varying diffusive coefficient defined by:
+      !!         ahbt = zahbp    if grad(rho).grad(h) < 0
+      !!              = 0.       otherwise.
+      !!      Note that grad(.) is the along bottom slope gradient. grad(rho)
+      !!      is evaluated using the local density (i.e. referenced at the
+      !!      local depth). Typical value of ahbt is 2000 m2/s (equivalent to
+      !!      a downslope velocity of 20 cm/s if the condition for slope
+      !!      convection is satified)
+      !!        Add this before trend to the general trend (ta,sa) of the
+      !!      botton ocean tracer point:
+      !!              ta = ta + difft
+      !!
+      !! ** Action  : - update (ta,sa) at the bottom level with the bottom
+      !!                boundary layer trend
+      !!
+      !! References : Beckmann, A., and R. Doscher, 1997, J. Phys.Oceanogr., 581-591.
+      !!----------------------------------------------------------------------     
+      USE eosbn2                      ! equation of state
+      USE oce, ONLY :   ztrdt => ua   ! use ua as 3D workspace   
+      USE oce, ONLY :   ztrds => va   ! use va as 3D workspace 
+      USE iom                           
+      !!
+      INTEGER, INTENT( in ) ::   kt   ! ocean time-step 
+      !!
+      INTEGER  ::   ji, jj, jk        ! dummy loop indices
+      INTEGER  ::   ik                ! temporary integers
+      INTEGER  ::   iku, iku1, iku2   !    "          "
+      INTEGER  ::   ikv, ikv1, ikv2   !    "          "
+      REAL(wp) ::   zsign, zh, zalbet     ! temporary scalars
+      REAL(wp) ::   zhbt1, zhbt2      ! temporary scalars
+      REAL(wp) ::   zgdrho, zbtr          !    "         " 
+      REAL(wp) ::   zbt, zsigna           !    "         "
+      REAL(wp) ::   zfui, ze3u, zt, zta   !    "         "
+      REAL(wp) ::   zfvj, ze3v, zs, zsa   !    "         "
+      REAL(wp), DIMENSION(jpi,jpj)     ::   zalphax, zwu, zunb   ! temporary 2D workspace
+      REAL(wp), DIMENSION(jpi,jpj)     ::   zalphay, zwv, zvnb   !    "             "
+      REAL(wp), DIMENSION(jpi,jpj)     ::   zwx, zwy, zww, zwz   !    "             "
+      REAL(wp), DIMENSION(jpi,jpj)     ::   ztbb, zsbb           !    "             "
+      REAL(wp), DIMENSION(jpi,jpj)     ::   ztnb, zsnb, zdep     !    "             "
+      REAL(wp), DIMENSION(jpi,jpj,jpk) ::   zhdivn               ! temporary 3D workspace
+      REAL(wp) ::   fsalbt, pft, pfs, pfh   ! statement function
+      !!----------------------------------------------------------------------
+      ! ratio alpha/beta
+      ! ================
+      !  fsalbt: ratio of thermal over saline expension coefficients
+      !       pft :  potential temperature in degrees celcius
+      !       pfs :  salinity anomaly (s-35) in psu
+      !       pfh :  depth in meters
+
+      fsalbt( pft, pfs, pfh ) =                                              &
+         ( ( ( -0.255019e-07 * pft + 0.298357e-05 ) * pft                    &
+                                   - 0.203814e-03 ) * pft                    &
+                                   + 0.170907e-01 ) * pft                    &
+                                   + 0.665157e-01                            &
+         +(-0.678662e-05 * pfs - 0.846960e-04 * pft + 0.378110e-02 ) * pfs   &
+         +  ( ( - 0.302285e-13 * pfh                                         &
+                - 0.251520e-11 * pfs                                         &
+                + 0.512857e-12 * pft * pft          ) * pfh                  &
+                                     - 0.164759e-06   * pfs                  &
+             +(   0.791325e-08 * pft - 0.933746e-06 ) * pft                  &
+                                     + 0.380374e-04 ) * pfh
+      !!----------------------------------------------------------------------
+
+      IF( kt == nit000 )   CALL tra_bbl_init    ! initialization at first time-step
+
+      ! 1. 2D fields of bottom temperature and salinity, and bottom slope
+      ! -----------------------------------------------------------------
+      ! mbathy= number of w-level, minimum value=1 (cf dommsk.F)
+
+#if defined key_vectopt_loop
+      DO jj = 1, 1
+         DO ji = 1, jpij   ! vector opt. (forced unrolling)
+#else
+      DO jj = 1, jpj
+         DO ji = 1, jpi
+#endif
+            ik = mbkt(ji,jj)                               ! index of the bottom ocean T-level
+            ztnb(ji,jj) = tn(ji,jj,ik)
+            zsnb(ji,jj) = sn(ji,jj,ik)
+            ztbb(ji,jj) = tb(ji,jj,ik)
+            zsbb(ji,jj) = sb(ji,jj,ik) 
+            IF ( ln_kriteria )  THEN
+              zdep(ji,jj) = mbkt(ji,jj)                   ! k-level of the ocean bottom T-level
+            ELSE
+             zdep(ji,jj) = fsdept(ji,jj,ik)               ! depth of the ocean bottom T-level
+            ENDIF
+            zunb(ji,jj) = un(ji,jj,mbku(ji,jj)) 
+            zvnb(ji,jj) = vn(ji,jj,mbkv(ji,jj)) 
+         END DO
+      END DO
+
+
+      ! 2. Criteria of additional bottom diffusivity: grad(rho).grad(h)<0
+      ! --------------------------------------------
+      ! Sign of the local density gradient along the i- and j-slopes
+      ! multiplied by the slope of the ocean bottom
+
+      SELECT CASE ( nn_eos )
+      !
+      CASE ( 0 )               ! Jackett and McDougall (1994) formulation
+         !
+         DO jj = 1, jpjm1
+            DO ji = 1, fs_jpim1   ! vector opt.
+               !   ... temperature, salinity anomalie and depth
+               zhbt1 = fsdept(ji,jj,mbkt(ji,jj)) ; zhbt2 = fsdept(ji+1,jj,mbkt(ji+1,jj))
+               zt = 0.5 * ( ztnb(ji,jj) + ztnb(ji+1,jj) )
+               zs = 0.5 * ( zsnb(ji,jj) + zsnb(ji+1,jj) ) - 35.0
+               zh = 0.5 * ( zhbt1       + zhbt2         )
+               !   ... masked ratio alpha/beta
+               zalbet = fsalbt( zt, zs, zh ) * umask(ji,jj,1)
+               !   ... local density gradient along i-bathymetric slope
+               zgdrho = zalbet * ( ztnb(ji+1,jj) - ztnb(ji,jj) )   &
+                  &       -      ( zsnb(ji+1,jj) - zsnb(ji,jj) )
+               zgdrho = zgdrho * umask(ji,jj,1)
+               !   ... sign of local i-gradient of density multiplied by the i-slope
+               zsign = SIGN( 0.5, -zgdrho     * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zunb(ji,jj) * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zalphax(ji,jj)=( 0.5 + zsigna ) * ( 0.5 - zsign ) * umask(ji,jj,1)
+               !
+               !   ... temperature, salinity anomalie and depth
+               zhbt1 = fsdept(ji,jj+1,mbkt(ji,jj+1)) ; zhbt2 = fsdept(ji,jj,mbkt(ji,jj))
+               zt = 0.5 * ( ztnb(ji,jj+1) + ztnb(ji,jj) )
+               zs = 0.5 * ( zsnb(ji,jj+1) + zsnb(ji,jj) ) - 35.0
+               zh = 0.5 * ( zhbt1         + zhbt2       )
+               !   ... masked ratio alpha/beta
+               zalbet = fsalbt( zt, zs, zh ) * vmask(ji,jj,1)
+               !   ... local density gradient along j-bathymetric slope
+               zgdrho = zalbet * ( ztnb(ji,jj+1) - ztnb(ji,jj) )   &
+                  &       -      ( zsnb(ji,jj+1) - zsnb(ji,jj) )
+               zgdrho = zgdrho*vmask(ji,jj,1)
+               !   ... sign of local j-gradient of density multiplied by the j-slope
+               zsign = SIGN( 0.5, -zgdrho     * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zvnb(ji,jj) * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zalphay(ji,jj)=( 0.5 + zsigna ) * ( 0.5 - zsign ) * vmask(ji,jj,1)
+            END DO
+         END DO
+         !
+      CASE ( 1 )               ! Linear formulation function of temperature only
+         !
+         DO jj = 1, jpjm1
+            DO ji = 1, fs_jpim1   ! vector opt.
+               ! local 'density/temperature' gradient along i-bathymetric slope
+               zgdrho =  ( ztnb(ji+1,jj) - ztnb(ji,jj) )
+               ! sign of local i-gradient of density multiplied by the i-slope
+               zsign = SIGN( 0.5, - zgdrho    * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zunb(ji,jj) * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zalphax(ji,jj)=( 0.5 + zsigna ) * ( 0.5 - zsign ) * umask(ji,jj,1)
+               ! 
+               ! local density gradient along j-bathymetric slope
+               zgdrho =  ( ztnb(ji,jj+1) - ztnb(ji,jj) )
+               ! sign of local j-gradient of density multiplied by the j-slope
+               zsign = SIGN( 0.5, -zgdrho     * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zvnb(ji,jj) * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zalphay(ji,jj)=( 0.5 + zsigna ) * ( 0.5 - zsign ) * vmask(ji,jj,1)
+            END DO
+         END DO
+         !
+      CASE ( 2 )               ! Linear formulation function of temperature and salinity
+         !
+         DO jj = 1, jpjm1
+            DO ji = 1, fs_jpim1   ! vector opt.            
+               ! local density gradient along i-bathymetric slope
+               zgdrho = - ( rn_beta *( zsnb(ji+1,jj) - zsnb(ji,jj) )   &
+                  &       - rn_alpha*( ztnb(ji+1,jj) - ztnb(ji,jj) ) )
+               ! sign of local i-gradient of density multiplied by the i-slope
+               zsign = SIGN( 0.5, - zgdrho    * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zunb(ji,jj) * ( zdep(ji+1,jj) - zdep(ji,jj) ) )
+               zalphax(ji,jj) = ( 0.5 + zsigna ) * ( 0.5 - zsign ) * umask(ji,jj,1)
+               ! 
+               ! local density gradient along j-bathymetric slope
+               zgdrho = - ( rn_beta *( zsnb(ji,jj+1) - zsnb(ji,jj) )   &
+                  &       - rn_alpha*( ztnb(ji,jj+1) - ztnb(ji,jj) ) )   
+               ! sign of local j-gradient of density multiplied by the j-slope
+               zsign = SIGN( 0.5, - zgdrho    * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zsigna= SIGN( 0.5, zvnb(ji,jj) * ( zdep(ji,jj+1) - zdep(ji,jj) ) )
+               zalphay(ji,jj) = ( 0.5 + zsigna ) * ( 0.5 - zsign ) * vmask(ji,jj,1)
+            END DO
+         END DO
+         !
+      END SELECT
+
+      ! lateral boundary conditions on zalphax and zalphay   (unchanged sign)
+       CALL lbc_lnk( zalphax, 'U', 1. )   ;   CALL lbc_lnk( zalphay, 'V', 1. )
+
+
+      ! 3. Velocities that are exchanged between ajacent bottom boxes.
+      !---------------------------------------------------------------
+
+      ! ... is equal to zero but where bbl will work.
+      u_bbl(:,:,:) = 0.e0
+      v_bbl(:,:,:) = 0.e0
+#if defined key_dynbbl_adv
+      umsk_bbl(:,:,:) = 0.e0
+      vmsk_bbl(:,:,:) = 0.e0
+#endif
+
+
+      IF( ln_zps ) THEN     ! partial steps correction   
+      
+# if defined key_vectopt_loop
+         DO jj = 1, 1
+            DO ji = 1, jpij-jpi   ! vector opt. (forced unrolling)
+# else   
+         DO jj = 1, jpjm1
+            DO ji = 1, jpim1
+# endif
+               iku  = mbku(ji  ,jj  )
+               ikv  = mbkv(ji  ,jj  )  
+               iku1 = mbkt(ji+1,jj  )
+               iku2 = mbkt(ji  ,jj  )
+               ikv1 = mbkt(ji  ,jj+1)
+               ikv2 = mbkt(ji  ,jj  )
+               ze3u = MIN( fse3u(ji,jj,iku1), fse3u(ji,jj,iku2) ) 
+               ze3v = MIN( fse3v(ji,jj,ikv1), fse3v(ji,jj,ikv2) ) 
+               
+               IF( MAX(iku,ikv) >  1 ) THEN
+                  u_bbl(ji,jj,iku) = zalphax(ji,jj) * un(ji,jj,iku) * ze3u / fse3u(ji,jj,iku)
+                  v_bbl(ji,jj,ikv) = zalphay(ji,jj) * vn(ji,jj,ikv) * ze3v / fse3v(ji,jj,ikv)       
+#if defined key_dynbbl_adv
+                  umsk_bbl(ji,jj,iku ) = zalphax(ji,jj)* ze3u / fse3u(ji,jj,iku)
+                  vmsk_bbl(ji,jj,ikv ) = zalphay(ji,jj)* ze3v / fse3v(ji,jj,ikv)
+                  umsk_bbl(ji,jj,iku1) = zalphax(ji,jj)* ze3u / fse3u(ji,jj,iku)
+                  vmsk_bbl(ji,jj,ikv1) = zalphay(ji,jj)* ze3v / fse3v(ji,jj,ikv)
+#endif
+               ENDIF
+            END DO
+         END DO
+
+         ! lateral boundary conditions on u_bbl and v_bbl   (changed sign)
+         CALL lbc_lnk( u_bbl, 'U', -1. )   ;   CALL lbc_lnk( v_bbl, 'V', -1. )
+       
+      ELSE       ! if not partial step loop over the whole domain no lbc call
+
+#if defined key_vectopt_loop
+         DO jj = 1, 1
+            DO ji = 1, jpij   ! vector opt. (forced unrolling)
+#else
+         DO jj = 1, jpj
+            DO ji = 1, jpi
+#endif   
+               iku = mbku(ji,jj)
+               ikv = mbkv(ji,jj)
+               IF( MAX(iku,ikv) >  1 ) THEN
+                  u_bbl(ji,jj,iku) = zalphax(ji,jj) * un(ji,jj,iku) 
+                  v_bbl(ji,jj,ikv) = zalphay(ji,jj) * vn(ji,jj,ikv)       
+#if defined key_dynbbl_adv
+                  umsk_bbl(ji,jj,iku ) = zalphax(ji,jj)
+                  vmsk_bbl(ji,jj,ikv ) = zalphay(ji,jj)
+                  umsk_bbl(ji,jj,iku1) = zalphax(ji,jj)
+                  vmsk_bbl(ji,jj,ikv1) = zalphay(ji,jj)
+#endif
+               ENDIF
+            END DO
+         END DO
+       
+      ENDIF
+
+      IF ( ln_counter ) THEN
+      ! BBL counter for u and v
+          ncountu_bbl(:,:) = 1 ;  WHERE (zalphax == 0.)  ncountu_bbl = 0
+          ncountv_bbl(:,:) = 1 ;  WHERE (zalphay == 0.)  ncountv_bbl = 0
+      ENDIF
+
+      ! 5. Along sigma advective trend
+      ! -------------------------------
+      ! ... Second order centered tracer flux at u and v-points
+
+# if defined key_vectopt_loop
+      DO jj = 1, 1
+         DO ji = 1, jpij-jpi   ! vector opt. (forced unrolling)
+# else
+      DO jj = 1, jpjm1
+         DO ji = 1, jpim1
+# endif
+            iku = mbku(ji,jj)
+            ikv = mbkv(ji,jj)
+            zfui = e2u(ji,jj) * fse3u(ji,jj,iku) * u_bbl(ji,jj,iku)
+            zfvj = e1v(ji,jj) * fse3v(ji,jj,ikv) * v_bbl(ji,jj,ikv)
+            ! centered scheme
+!           zwx(ji,jj) = 0.5* zfui * ( ztnb(ji,jj) + ztnb(ji+1,jj) )
+!           zwy(ji,jj) = 0.5* zfvj * ( ztnb(ji,jj) + ztnb(ji,jj+1) )
+!           zww(ji,jj) = 0.5* zfui * ( zsnb(ji,jj) + zsnb(ji+1,jj) )
+!           zwz(ji,jj) = 0.5* zfvj * ( zsnb(ji,jj) + zsnb(ji,jj+1) )
+            ! upstream scheme
+            zwx(ji,jj) = ( ( zfui + ABS( zfui ) ) * ztbb(ji  ,jj  )   &
+               &          +( zfui - ABS( zfui ) ) * ztbb(ji+1,jj  ) ) * 0.5
+            zwy(ji,jj) = ( ( zfvj + ABS( zfvj ) ) * ztbb(ji  ,jj  )   &
+               &          +( zfvj - ABS( zfvj ) ) * ztbb(ji  ,jj+1) ) * 0.5
+            zww(ji,jj) = ( ( zfui + ABS( zfui ) ) * zsbb(ji  ,jj  )   &
+               &          +( zfui - ABS( zfui ) ) * zsbb(ji+1,jj  ) ) * 0.5
+            zwz(ji,jj) = ( ( zfvj + ABS( zfvj ) ) * zsbb(ji  ,jj  )   &
+               &          +( zfvj - ABS( zfvj ) ) * zsbb(ji  ,jj+1) ) * 0.5
+         END DO
+      END DO
+# if defined key_vectopt_loop
+      DO jj = 1, 1
+         DO ji = jpi+2, jpij-jpi-1   ! vector opt. (forced unrolling)
+# else
+      DO jj = 2, jpjm1
+         DO ji = 2, jpim1
+# endif
+            ik = mbkt(ji,jj)
+            zbtr = 1. / ( e1t(ji,jj)*e2t(ji,jj)*fse3t(ji,jj,ik) )
+            ! horizontal advective trends
+            zta = - zbtr * (  zwx(ji,jj) - zwx(ji-1,jj  )   &
+               &            + zwy(ji,jj) - zwy(ji  ,jj-1)  )
+            zsa = - zbtr * (  zww(ji,jj) - zww(ji-1,jj  )   &
+               &            + zwz(ji,jj) - zwz(ji  ,jj-1)  )
+
+            ! add it to the general tracer trends
+            ta(ji,jj,ik) = ta(ji,jj,ik) + zta
+            sa(ji,jj,ik) = sa(ji,jj,ik) + zsa
+         END DO
+      END DO
+
+      IF(ln_ctl)   CALL prt_ctl( tab3d_1=ta, clinfo1=' bbl  - Ta: ', mask1=tmask,   &
+         &                       tab3d_2=sa, clinfo2=       ' Sa: ', mask2=tmask, clinfo3='tra' )
+
+      ! 6. Vertical advection velocities
+      ! --------------------------------
+      ! ... computes divergence perturbation (velocties to be removed from upper t boxes :
+      DO jk= 1, jpkm1
+         DO jj=1, jpjm1
+            DO ji = 1, fs_jpim1   ! vector opt.
+               zwu(ji,jj) = -e2u(ji,jj) * u_bbl(ji,jj,jk) * fse3u(ji,jj,jk)
+               zwv(ji,jj) = -e1v(ji,jj) * v_bbl(ji,jj,jk) * fse3v(ji,jj,jk)
+            END DO
+         END DO
+
+      ! ... horizontal divergence
+         DO jj = 2, jpjm1
+            DO ji = fs_2, fs_jpim1   ! vector opt.
+               zbt = e1t(ji,jj) * e2t(ji,jj) * fse3t(ji,jj,jk)
+               zhdivn(ji,jj,jk) = (  zwu(ji,jj) - zwu(ji-1,jj  )   &
+                                   + zwv(ji,jj) - zwv(ji  ,jj-1)  ) / zbt
+            END DO
+         END DO
+      END DO
+
+
+      ! ... horizontal bottom divergence
+
+      IF( ln_zps ) THEN
+ 
+# if defined key_vectopt_loop
+         DO jj = 1, 1
+            DO ji = 1, jpij-jpi   ! vector opt. (forced unrolling)
+# else
+         DO jj = 1, jpjm1
+            DO ji = 1, jpim1
+# endif
+               iku  = mbku(ji  ,jj  )
+               ikv  = mbkv(ji  ,jj  )  
+               iku1 = mbkt(ji+1,jj  )
+               iku2 = mbkt(ji  ,jj  )
+               ikv1 = mbkt(ji  ,jj+1)
+               ikv2 = mbkt(ji  ,jj  )
+               ze3u = MIN( fse3u(ji,jj,iku1), fse3u(ji,jj,iku2) ) 
+               ze3v = MIN( fse3v(ji,jj,ikv1), fse3v(ji,jj,ikv2) ) 
+
+               zwu(ji,jj) = zalphax(ji,jj) * e2u(ji,jj) * ze3u  
+               zwv(ji,jj) = zalphay(ji,jj) * e1v(ji,jj) * ze3v
+            END DO
+         END DO  
+         !
+      ELSE
+         !
+# if defined key_vectopt_loop
+         DO jj = 1, 1
+            DO ji = 1, jpij-jpi   ! vector opt. (forced unrolling)
+# else
+         DO jj = 1, jpjm1
+            DO ji = 1, jpim1
+# endif
+               iku = mbku(ji,jj)
+               ikv = mbkv(ji,jj)
+               zwu(ji,jj) = zalphax(ji,jj) * e2u(ji,jj) * fse3u(ji,jj,iku) 
+               zwv(ji,jj) = zalphay(ji,jj) * e1v(ji,jj) * fse3v(ji,jj,ikv) 
+            END DO
+         END DO
+         !
+      ENDIF
+ 
+
+# if defined key_vectopt_loop
+      DO jj = 1, 1
+         DO ji = jpi+2, jpij-jpi-1   ! vector opt. (forced unrolling)
+# else
+      DO jj = 2, jpjm1
+         DO ji = 2, jpim1
+# endif
+            ik = mbkt(ji,jj)
+            zbt = e1t(ji,jj) * e2t(ji,jj) * fse3t(ji,jj,ik)
+            zhdivn(ji,jj,ik) =   &
+               &   (  zwu(ji  ,jj  ) * ( zunb(ji  ,jj  ) - un(ji  ,jj  ,ik) )   &
+               &    - zwu(ji-1,jj  ) * ( zunb(ji-1,jj  ) - un(ji-1,jj  ,ik) )   &
+               &    + zwv(ji  ,jj  ) * ( zvnb(ji  ,jj  ) - vn(ji  ,jj  ,ik) )   &
+               &    - zwv(ji  ,jj-1) * ( zvnb(ji  ,jj-1) - vn(ji  ,jj-1,ik) )   &
+               &   ) / zbt
+
+         END DO
+      END DO
+
+      ! 7. compute additional vertical velocity to be used in t boxes
+      ! -------------------------------------------------------------
+      ! ... Computation from the bottom
+      ! Note that w_bbl(:,:,jpk) has been set to 0 in tra_bbl_init
+      DO jk = jpkm1, 1, -1
+         DO jj= 2, jpjm1
+            DO ji = fs_2, fs_jpim1   ! vector opt.
+               w_bbl(ji,jj,jk) = w_bbl(ji,jj,jk+1) - fse3t(ji,jj,jk)*zhdivn(ji,jj,jk)
+            END DO
+         END DO
+      END DO
+      CALL lbc_lnk( w_bbl, 'W', 1. )      ! Boundary condition on w_bbl   (unchanged sign)
+
+      CALL iom_put( "uoce_bbl", u_bbl )   ! bbl i-current      
+      CALL iom_put( "voce_bbl", v_bbl )   ! bbl j-current
+      CALL iom_put( "woce_bbl", w_bbl )   ! bbl vert. current
+      !
+   END SUBROUTINE tra_bbl_adv

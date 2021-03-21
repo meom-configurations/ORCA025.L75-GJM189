@@ -1,0 +1,318 @@
+  !!======================================================================
+  !!                     ***  NAMELIST namelistio  ***
+  !! template namelistio for BUILDNC_2.0
+  !!=====================================================================
+  !!----------------------------------------------------------------------
+  !! BUILDNC_2.0 , MEOM 2012
+  !! $Id: namelistio 1164 2012-06-22 08:08:32Z molines $
+  !! Copyright (c) 2012, J.-M. Molines
+  !! Software governed by the CeCILL licence (Licence/BUILDNCCeCILL.txt)
+  !!----------------------------------------------------------------------
+
+ &namexper
+ CEXPER = 'ORCA025.L75-GJM189'
+ ln_dimgnnn=.false.
+ ! ndate0 = 19580101
+ ! nleap = 0
+ ! rdtwr  = 5.
+ /
+ &namchoice
+ ln_gridt=.true.
+ ln_gridu=.true.
+ ln_gridv=.true.
+ ln_gridw=.true.
+ ln_trac=.false.
+ ln_ice=.true.
+ ln_mld=.false.
+ ln_bbl=.false.
+ ln_flx=.true.
+ ln_dyn=.false.
+ ln_lom=.false.
+ ln_top=.false.
+ ln_mld_top=.false.
+/
+ &namvar
+ CVNAME = 'T ',
+          'S ',
+          'SSH ',
+          'MLD ',
+          'HMLD ',
+          'QNET ',
+          'QSR ',
+          'EMP ',
+          'ERP ',
+          'EMPS ',
+          'QLA ',
+          'QLW ',
+          'QSB ',
+          '--'
+ /
+ &namlom
+          'HTRDS ',
+          'VTRDS ',
+          'HTRDT',
+          'VTRDT',
+          '--'
+/
+ &nambbl
+ CVNAME = 'CNT_BBL ',
+          'CNT_BBL_U',
+          'CNT_BBL_V',
+          '--'
+/
+ &namvartra
+ CVNAME = 'CFC11 ',
+          'C14 ',
+          'CLR01 ',
+          'CLR02 ',
+          'CLR03 ',
+          'CLR04 ',
+          'CLR05 ',
+          'INVCFC ',
+          'INVC14 ',
+          'QTRCFC ',
+          'QTRC14 ',
+          'QINTCFC ',
+          'QINTC14 ',
+          '--'
+/
+ &namvarflx
+ CVNAME = 'QLA ',
+          'QLW ',
+          'QSB ',
+          'QSR ',
+          'QNET ',
+          'QRP ',
+          'EMP ',
+          'EMPS ',
+          'ERP ',
+          'HUMI ',
+          'TAIR ',
+          'WIND ',
+          'PRECIP ',
+          'CCOV ',
+          'RNF ',
+          '--'
+/
+ &namvardyn
+ CVNAME = 'PBOT ',
+          'HDY ',
+          'HPA ',
+          'HBAR ',
+          '--'
+/
+
+ &namvaru
+ CVNAME = 'U ',
+          'TAUX ',
+          '--'
+ /
+ &namvarv
+ CVNAME = 'V ',
+          'TAUY ',
+          '--'
+ /
+ &namvarw
+ CVNAME = 'W ',
+          'KZ ',
+          '--'
+ /
+!
+!'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+!       namiceout   parameters for outputs
+!,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+!
+!   noumef      : number of fields
+!   field
+!        title  : title of the field
+!        name   : name of the field
+!        unit   : unit of the field
+!        nc     : switch for saving field ( = 1 ) or not ( = 0 )
+!        cmulti : multiplicative constant
+!        cadd   : additive constant
+!
+ &namiceout
+   noumef   = 19 
+!              !         title of the field           !  name     !   units   !  save  ! multipl. ! additive !
+!              !                                      !           !           ! or not !  factor  !  factor  !
+   field_1     = 'Snow thickness                     ', 'isnowthi', 'm       ',    1   ,  1.0     ,    0.0
+   field_2     = 'Ice thickness                      ', 'iicethic', 'm       ',    1   ,  1.0     ,    0.0
+   field_3     = 'Ice produced                       ', 'iiceprod', 'm/kt    ',    1   ,  1.0     ,    0.0
+   field_4     = 'Ice concentration                  ', 'ileadfra', '%       ',    1   , -1.0     ,    1.0
+   field_5     = 'Ice temperature                    ', 'iicetemp', 'C       ',    1   ,  1.0     , -273.15
+   field_6     = 'Oceanic flux at the ice base       ', 'ioceflxb', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_7     = 'Ice velocity u                     ', 'iicevelu', 'm/s     ',    1   ,  1.0     ,    0.0
+   field_8     = 'Ice velocity v                     ', 'iicevelv', 'm/s     ',    1   ,  1.0     ,    0.0
+   field_9     = 'Sea surface temperature            ', 'isstempe', 'C       ',    1   ,  1.0     , -273.15
+   field_10    = 'Sea surface salinity               ', 'isssalin', 'PSU     ',    1   ,  1.0     ,    0.0
+   field_11    = 'Total flux at ocean surface        ', 'iocetflx', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_12    = 'Solar flux at ocean surface        ', 'iocesflx', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_13    = 'Non-solar flux at ocean surface    ', 'iocwnsfl', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_14    = 'Salt flux at ocean surface         ', 'iocesafl', 'kg/m2/kt',    1   ,  1.0     ,    0.0
+   field_15    = 'Wind stress u                      ', 'iocestru', 'Pa      ',    1   ,  1.0     ,    0.0
+   field_16    = 'Wind stress v                      ', 'iocestrv', 'Pa      ',    1   ,  1.0     ,    0.0
+   field_17    = 'Solar flux at ice/ocean surface    ', 'iicesflx', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_18    = 'Non-solar flux at ice/ocean surface', 'iicenflx', 'w/m2    ',    1   ,  1.0     ,    0.0
+   field_19    = 'Snow precipitation                 ', 'isnowpre', 'kg/day  ',    1   ,  1.0     ,    0.0
+ /
+!#########################################################################################
+!#################   T O P : LOBSTER/ PISCES / CFC / C14B / CLR / MY_TRC #################
+!#########################################################################################
+ &namtopmoduless
+ top_lobster= .false.
+ top_pisces = .true.
+ top_cfc    = .true.
+ top_c14b   = .false.
+ top_my_trc = .false.
+ top_clr    = .false.
+ /
+
+ &namvartop
+ numvar = 25
+ numdiag2d_lobster = 0
+ numdiag2d_pisces = 7
+ numdiag2d_cfc = 3
+ numdiag2d_c14b = 0
+ numdiag2d_clr = 0
+ numdiag2d_my_trc = 0
+ numdiag3d_lobster = 0
+ numdiag3d_pisces = 17
+ numdiag3d_cfc = 0
+ numdiag3d_c14b = 0
+ numdiag3d_clr = 0
+ numdiag3d_my_trc = 0
+ numdiagx = 3
+ /
+ &namdiagxatt
+ cvname = 'QTRCFC3',
+          'QINTCFC3',
+          'INVCFC3'
+ cvunit = 'mol-cfc/m2/s',
+          'mol-cfc/m2',
+          'mol-cfc/m2'
+ cvlong = 'cfc instantaneous flux',
+          'cfc cumulative flux',
+          'cfc inventory'
+ cvdim = 2,
+         2,
+         2
+ /
+!,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+&namtoptrc     !   tracers definition
+!,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+   ndttrc      =  1        !  time step frequency for passive tracers
+   nwritetrc   =  150     !  time step frequency for tracer outputs
+!   ln_rsttr    = .RESTART.   !  start from a restart file (T) or not (F)
+   nrsttr      =   2       !  restart control = 0 initial time step is not compared to the restart file value
+                           !                  = 1 do not use the value in the restart file
+                           !                  = 2 calendar parameters read in the restart file
+   cn_trcrst_in  = "restart_trc"   !  suffix of pass. tracer restart name (input)
+   cn_trcrst_out = "restart_trc"   !  suffix of pass. tracer restart name (output)
+!              !    name   !           title of the field              !   units       ! initial data ! save   !
+!              !           !                                           !               ! from file    ! or not !
+!              !           !                                           !               ! or not       !        !
+   tracer(1)   = 'DIC     ' , 'Dissolved inorganic Concentration      ',  'mol-C/L'    ,  .true.      ,  .true.
+   tracer(2)   = 'Alkalini' , 'Total Alkalinity Concentration         ',  'mol-Alk/L ' ,  .true.      ,  .true.
+   tracer(3)   = 'O2      ' , 'Dissolved Oxygen Concentration         ',  'mol-O2/L'   ,  .true.      ,  .true.
+   tracer(4)   = 'CaCO3   ' , 'Calcite Concentration                  ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(5)   = 'PO4     ' , 'Phosphate Concentration                ',  'mol-C/L'    ,  .true.      ,  .true.
+   tracer(6)   = 'POC     ' , 'Small organic carbon Concentration     ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(7)   = 'Si      ' , 'Silicate Concentration                 ',  'mol-Si/L'   ,  .true.      ,  .true.
+   tracer(8)   = 'PHY     ' , 'Nanophytoplankton Concentration        ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(9)   = 'ZOO     ' , 'Microzooplankton Concentration         ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(10)  = 'DOC     ' , 'Dissolved organic Concentration        ',  'mol-C/L'    ,  .true.      ,  .true.
+   tracer(11)  = 'PHY2    ' , 'Diatoms Concentration                  ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(12)  = 'ZOO2    ' , 'Mesozooplankton Concentration          ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(13)  = 'BSi     ' , 'Diatoms Silicate Concentration         ',  'mol-Si/L'   ,  .false.     ,  .true.
+   tracer(14)  = 'Fer     ' , 'Dissolved Iron Concentration           ',  'mol-Fe/L'   ,  .true.      ,  .true.
+   tracer(15)  = 'BFe     ' , 'Big iron particles Concentration       ',  'mol-Fe/L'   ,  .false.     ,  .true.
+   tracer(16)  = 'GOC     ' , 'Big organic carbon Concentration       ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(17)  = 'SFe     ' , 'Small iron particles Concentration     ',  'mol-Fe/L'   ,  .false.     ,  .true.
+   tracer(18)  = 'DFe     ' , 'Diatoms iron  Concentration            ',  'mol-Fe/L'   ,  .false.     ,  .true.
+   tracer(19)  = 'DSi     ' , 'Sinking biogenic Silicate Concentration',  'mol-Si/L'   ,  .false.     ,  .true.
+   tracer(20)  = 'NFe     ' , 'Nano iron Concentration                ',  'mol-Fe/L'   ,  .false.     ,  .true.
+   tracer(21)  = 'NCHL    ' , 'Nano chlorophyl Concentration          ',  'gCHL/L'     ,  .false.     ,  .true.
+   tracer(22)  = 'DCHL    ' , 'Diatoms chlorophyl Concentration       ',  'gCHL/L'     ,  .false.     ,  .true.
+   tracer(23)  = 'NO3     ' , 'Nitrates Concentration                 ',  'mol-C/L'    ,  .true.      ,  .true.
+   tracer(24)  = 'NH4     ' , 'Ammonium Concentration                 ',  'mol-C/L'    ,  .false.     ,  .true.
+   tracer(25)  = 'CFC11   ' , 'Chlorofluorocarbon-11                  ',  'molCFC/m3'  ,  .true.      ,  .true.
+!   tracer(26)  = 'CFC12   ' , 'Chlorofluorocarbon-12                  ',  'picomol/L' ,  .false.     ,  .true.
+/
+!'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+&nampisdia     !   additional 2D/3D tracers diagnostics ("key_trc_diaadd")
+!,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+   nwritedia   =  150      !  time step frequency for tracers diagnostics
+!
+!               !    name   !           title of the field          !     units        !
+!               !           !                                       !                  !
+   pisdia2d(1)  = 'Cflx     ' , 'DIC flux                           ',  'molC/m2/s     '
+   pisdia2d(2)  = 'Oflx     ' , 'Oxygen flux                        ',  'molC/m2/s     '
+   pisdia2d(3)  = 'Kg       ' , 'Gas transfer                       ',  'mol/m2/s/uatm '
+   pisdia2d(4)  = 'Delc     ' , 'Delta CO2                          ',  'uatm          '
+   pisdia2d(5)  = 'heup     ' , 'euphotic layer depth               ',  'm             '
+   pisdia2d(6)  = 'Fedep    ' , 'Iron dep                           ',  'molFe/m2/s    '
+   pisdia2d(7)  = 'Nfix     ' , 'Nitrogen Fixation                  ',  'molN/m2/s     '
+   pisdia3d(1)  = 'PH       ' , 'PH                                 ',  '-             '
+   pisdia3d(2)  = 'CO3      ' , 'Bicarbonates                       ',  'mol/l         '
+   pisdia3d(3)  = 'CO3sat   ' , 'CO3 saturation                     ',  'mol/l         '
+   pisdia3d(4)  = 'PAR      ' , 'light penetration                  ',  'W/m2          '
+   pisdia3d(5)  = 'PPPHY    ' , 'Primary production of nanophyto    ',  'molC/m3/s     '
+   pisdia3d(6)  = 'PPPHY2   ' , 'Primary production of diatoms      ',  'molC/m3/s     '
+   pisdia3d(7)  = 'PPNEWN   ' , 'New Primary production of nano     ',  'molC/m3/s     '
+   pisdia3d(8)  = 'PPNEWD   ' , 'New Primary production of diat     ',  'molC/m3/s     '
+   pisdia3d(9)  = 'PBSi     ' , 'Primary production of Si diatoms   ',  'molSi/m3/s    '
+   pisdia3d(10) = 'PFeN     ' , 'Primary production of nano iron    ',  'molFe/m3/s    '
+   pisdia3d(11) = 'PFeD     ' , 'Primary production of diatoms iron ',  'molFe/m3/s    '
+   pisdia3d(12) = 'PMO      ' , 'POC export                         ',  'molC/m2/s     '
+   pisdia3d(13) = 'PMO2     ' , 'GOC export                         ',  'molC/m2/s     '
+   pisdia3d(14) = 'ExpFe1   ' , 'Nano iron export                   ',  'molFe/m2/s    '
+   pisdia3d(15) = 'ExpFe2   ' , 'Diatoms iron export                ',  'molFe/m2/s    '
+   pisdia3d(16) = 'ExpSi    ' , 'Silicate export                    ',  'molSi/m2/s    '
+   pisdia3d(17) = 'ExpCaCO3 ' , 'Calcite export                     ',  'molC/m2/s     '
+/
+&namcfcdia
+     nwritedia = 150         ! Frequency of diag output
+    !              Short Nam     Long Name                    Units
+    !            ! snamedia  !   lnamedia                  !   unitdia   !
+     cfcdia2d(1) = 'qtrcfc'  ,  'instantaneous CFC flux',  'mol/m2/s'
+     cfcdia2d(2) = 'qintcfc' ,  'cumulative CFC flux',     'mol/m2'
+     cfcdia2d(3) = 'invcfc'  ,  'CFC inventory',           'mol/m2'
+/
+&namc14dia
+/
+!-----------------------------------------------------------------------
+&namtoptrd       !   diagnostics on tracer trends
+!                          or mixed-layer trends          ('key_trdmld_trc')
+!----------------------------------------------------------------------
+   ntrd_trc   =  150      !  time step frequency and tracers trends
+   nctls_trc  =   0        !  control surface type in mixed-layer trends (0,1 or n<jpk)
+   ucf_trc    =   1        !  unit conversion factor (=1 -> /seconds ; =86400. -> /day)
+   ln_trdmld_trc_restart = .false.  !  restart for ML diagnostics
+   ln_trdmld_trc_instant = .true.   !  flag to diagnose trends of instantantaneous or mean ML T/S
+   luttrd(1)  =   .true.
+   luttrd(2)  =   .true.
+   luttrd(3)  =   .false.
+   luttrd(4)  =   .false.
+   luttrd(5)  =   .true.
+   luttrd(6)  =   .false.
+   luttrd(7)  =   .true.
+   luttrd(8)  =   .false.
+   luttrd(9)  =   .false.
+   luttrd(10) =   .false.
+   luttrd(11) =   .false.
+   luttrd(12) =   .false.
+   luttrd(13) =   .false.
+   luttrd(14) =   .true.
+   luttrd(15) =   .false.
+   luttrd(16) =   .false.
+   luttrd(17) =   .false.
+   luttrd(18) =   .false.
+   luttrd(19) =   .false.
+   luttrd(20) =   .false.
+   luttrd(21) =   .false.
+   luttrd(22) =   .false.
+   luttrd(23) =   .true.
+   luttrd(24) =   .false.
+   luttrd(25) =   .true.
+!   luttrd(26) =   .false.
+/

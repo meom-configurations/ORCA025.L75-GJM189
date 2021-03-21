@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1430/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC
+END
+obctra.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1430/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obctra.F90
+END
+obcdta.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obcdta.F90
+END
+obc_par_NATL025.h90
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obc_par_NATL025.h90
+END
+obcdyn.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1430/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obcdyn.F90
+END
+obc_par_PERIANT05.h90
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obc_par_PERIANT05.h90
+END
+obc_par_GIB025.h90
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obc_par_GIB025.h90
+END
+obcini.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obcini.F90
+END
+obcvol.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obcvol.F90
+END
+obc_par.F90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/OBC/obc_par.F90
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1438/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/LBC
+END
+mppini.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/LBC/mppini.F90
+END
+mppini_2.h90
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1438/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/LBC/mppini_2.h90
+END
+lib_mpp.F90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1434/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/LBC/lib_mpp.F90
+END

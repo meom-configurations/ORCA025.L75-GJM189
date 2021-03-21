@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/NOC
+END
+arch-pgf90_mobius.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/NOC/arch-pgf90_mobius.fcm
+END
+arch-ALTIX_NAUTILUS_MPT.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/NOC/arch-ALTIX_NAUTILUS_MPT.fcm
+END
+arch-ALTIX_NAUTILUS.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/NOC/arch-ALTIX_NAUTILUS.fcm
+END
+arch-XT6_HECTORcrayftn.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/NOC/arch-XT6_HECTORcrayftn.fcm
+END

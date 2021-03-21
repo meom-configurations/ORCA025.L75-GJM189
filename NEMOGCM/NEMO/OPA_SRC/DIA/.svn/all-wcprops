@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1426/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA
+END
+diadimg.F90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA/diadimg.F90
+END
+diawri.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1426/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA/diawri.F90
+END
+diawri_dimg.h90
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DCM/!svn/ver/1426/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA/diawri_dimg.h90
+END
+diawri_daily.F90
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA/diawri_daily.F90
+END
+diawri_dimg_daily.h90
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DIA/diawri_dimg_daily.h90
+END

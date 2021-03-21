@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z
+END
+p2zsed.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z/p2zsed.F90
+END
+p2zexp.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z/p2zexp.F90
+END
+p2zopt.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z/p2zopt.F90
+END
+p2zsms.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z/p2zsms.F90
+END
+p2zbio.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/P2Z/p2zbio.F90
+END

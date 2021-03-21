@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1300/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM
+END
+domain.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/domain.F90
+END
+dommsk.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/dommsk.F90
+END
+domhgr.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/domhgr.F90
+END
+domzgr.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1300/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/domzgr.F90
+END
+dtatsd.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/dtatsd.F90
+END
+dom_oce.F90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1300/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DOM/dom_oce.F90
+END

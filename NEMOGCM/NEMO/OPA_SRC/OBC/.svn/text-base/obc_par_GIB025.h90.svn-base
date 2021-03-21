@@ -1,0 +1,56 @@
+   !!----------------------------------------------------------------------
+   !!                  ***  obc_par_GIB025.h90  ***
+   !!----------------------------------------------------------------------
+   !! open boundary parameter : GIB025 configuration
+   !!---------------------------------------------------------------------
+   !!----------------------------------------------------------------------
+   !!  OPA 9.0 , LOCEAN-IPSL (2005) 
+   !! $Header$ 
+   !! This software is governed by the CeCILL licence see modipsl/doc/NEMO_CeCILL.txt 
+   !!----------------------------------------------------------------------
+   INTEGER, PARAMETER ::     &  !: time dimension for the BCS fields on input
+      jptobc  =	      2 
+
+   !! * EAST open boundary
+   LOGICAL, PARAMETER ::     &  !:
+      lp_obc_east = .TRUE.      !: to active or not the East open boundary
+   INTEGER, PARAMETER ::     &  !:
+      jpieob  =       98,    &  !: i-localization of the East open boundary (must be ocean U-point)
+      jpjed   =        1,    &  !: j-starting indice of the East open boundary (must be land T-point)
+      jpjef   =      100,    &  !: j-ending   indice of the East open boundary (must be land T-point)
+      jpjedp1 =        2,    &  !: first ocean point         "                 "
+      jpjefm1 =       99             !: last  ocean point         "                 "
+
+   !! * WEST open boundary
+   LOGICAL, PARAMETER ::     &  !:
+      lp_obc_west = .TRUE.      !: to active or not the West open boundary
+   INTEGER, PARAMETER ::     &
+      jpiwob  =	       2,    &  !: i-localization of the West open boundary (must be ocean U-point)
+      jpjwd   =	       1,    &  !: j-starting indice of the West open boundary (must be land T-point)
+      jpjwf   =      100,    &  !: j-ending   indice of the West open boundary (must be land T-point)
+      jpjwdp1 =        2,    &  !: first ocean point         "                 "
+      jpjwfm1 =      99         !: last  ocean point         "                 "
+
+   !! * NORTH open boundary
+   LOGICAL, PARAMETER ::     &  !:
+      lp_obc_north = .TRUE.    !: to active or not the North open boundary
+   INTEGER, PARAMETER ::     &  !:
+      jpjnob  =      98 ,    &  !: j-localization of the North open boundary (must be ocean V-point)
+      jpind   =       1 ,    &  !: i-starting indice of the North open boundary (must be land T-point)
+      jpinf   =     100 ,    &  !: i-ending   indice of the North open boundary (must be land T-point)
+      jpindp1 =       2 ,    &  !: first ocean point         "                 "
+      jpinfm1 =      99         !: last  ocean point         "                 "
+
+   !! * SOUTH open boundary
+   LOGICAL, PARAMETER ::     &  !:
+      lp_obc_south = .TRUE.    !: to active or not the South open boundary
+   INTEGER, PARAMETER ::     &  !:
+      jpjsob  =        2,    &  !: j-localization of the South open boundary (must be ocean V-point)
+      jpisd   =        1,    &  !: i-starting indice of the South open boundary (must be land T-point)
+      jpisf   =      100,    &  !: i-ending   indice of the South open boundary (must be land T-point)
+      jpisdp1 =        2,    &  !: first ocean point         "                 "
+      jpisfm1 =       99        !: last  ocean point         "                 "
+   
+   INTEGER, PARAMETER ::     &  !:
+      jpnic = 2700              !: maximum number of isolated coastlines points 
+   !!---------------------------------------------------------------------------------------------

@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/DCM/!svn/ver/1441/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC
+END
+nemogcm.F90
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DCM/!svn/ver/1441/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/nemogcm.F90
+END
+timing.F90
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/timing.F90
+END
+par_NATL025.h90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_NATL025.h90
+END
+par_ORCA_R2.h90
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1104/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_ORCA_R2.h90
+END
+par_GIB025.h90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_GIB025.h90
+END
+flxish.F90
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/flxish.F90
+END
+step_oce.F90
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/step_oce.F90
+END
+par_SAS_N128.h90
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1259/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_SAS_N128.h90
+END
+par_NATL12.h90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_NATL12.h90
+END
+par_ATL4.h90
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_ATL4.h90
+END
+par_oce.F90
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DCM/!svn/ver/1259/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_oce.F90
+END
+stpctl.F90
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/stpctl.F90
+END
+par_PERIANT05.h90
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_PERIANT05.h90
+END
+step.F90
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DCM/!svn/ver/1300/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/step.F90
+END
+par_ORCA_R12.h90
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1100/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_ORCA_R12.h90
+END
+par_ORCA_R05.h90
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1101/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/par_ORCA_R05.h90
+END

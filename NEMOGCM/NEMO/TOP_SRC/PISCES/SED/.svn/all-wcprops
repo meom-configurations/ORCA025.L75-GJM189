@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED
+END
+sedstp.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedstp.F90
+END
+sedbtb.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedbtb.F90
+END
+seddta.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/seddta.F90
+END
+sedrst.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedrst.F90
+END
+sedadv.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedadv.F90
+END
+sedsfc.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedsfc.F90
+END
+sedchem.F90
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedchem.F90
+END
+sed.F90
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sed.F90
+END
+sedini.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedini.F90
+END
+par_sed.F90
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/par_sed.F90
+END
+sedmat.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedmat.F90
+END
+sedarr.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedarr.F90
+END
+sedco3.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedco3.F90
+END
+seddsr.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/seddsr.F90
+END
+sedmodel.F90
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedmodel.F90
+END
+sedwri.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedwri.F90
+END
+sedmbc.F90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DCM/!svn/ver/1232/DCM/trunk/NEMOREF/NEMOGCM/NEMO/TOP_SRC/PISCES/SED/sedmbc.F90
+END

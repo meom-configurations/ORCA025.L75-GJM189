@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/DCM/!svn/ver/1384/DCM/trunk/DRAKKAR/NEMOGCM/ARCH
+END
+arch-gfortran_linux_legi.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DCM/!svn/ver/1384/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-gfortran_linux_legi.fcm
+END
+arch-ifort_linux_foehn.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DCM/!svn/ver/1097/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_linux_foehn.fcm
+END
+arch-lemaitre2.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DCM/!svn/ver/1301/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-lemaitre2.fcm
+END
+arch-ifort_linux_jade.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DCM/!svn/ver/1184/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_linux_jade.fcm
+END
+arch-ifort_linux_ada.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1207/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_linux_ada.fcm
+END
+arch-ifort_linux_curie.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_linux_curie.fcm
+END
+arch-ifort_linux_froggy.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DCM/!svn/ver/1319/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_linux_froggy.fcm
+END
+arch-ifort_meol.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DCM/!svn/ver/1093/DCM/trunk/DRAKKAR/NEMOGCM/ARCH/arch-ifort_meol.fcm
+END

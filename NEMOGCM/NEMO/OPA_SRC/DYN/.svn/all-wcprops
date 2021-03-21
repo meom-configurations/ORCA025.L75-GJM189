@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1300/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DYN
+END
+dynldf_bilap.F90
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DYN/dynldf_bilap.F90
+END
+dynspg_ts.F90
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DYN/dynspg_ts.F90
+END
+divcur.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DYN/divcur.F90
+END
+dynkeg.F90
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1222/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/DYN/dynkeg.F90
+END

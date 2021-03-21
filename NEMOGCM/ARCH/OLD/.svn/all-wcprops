@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD
+END
+arch-ifort_MERCATOR_CLUSTER.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-ifort_MERCATOR_CLUSTER.fcm
+END
+arch-lahey_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-lahey_linux.fcm
+END
+arch-xlf_osx.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-xlf_osx.fcm
+END
+arch-pathscale_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-pathscale_linux.fcm
+END
+arch-g95_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-g95_linux.fcm
+END
+arch-nag_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-nag_linux.fcm
+END
+arch-XT6_HECTOR.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-XT6_HECTOR.fcm
+END
+arch-mpxlf_aix.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-mpxlf_aix.fcm
+END
+arch-xlf_aix.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-xlf_aix.fcm
+END
+arch-g95_osx.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-g95_osx.fcm
+END
+arch-PW6_C1A.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-PW6_C1A.fcm
+END
+arch-PW6_METO.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-PW6_METO.fcm
+END
+arch-gfortran_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-gfortran_linux.fcm
+END
+arch-PW7_METO.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-PW7_METO.fcm
+END
+arch-ifort_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-ifort_linux.fcm
+END
+arch-pgf90_linux.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-pgf90_linux.fcm
+END
+arch-xlf_pwr6.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-xlf_pwr6.fcm
+END
+arch-gfortran_osx.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-gfortran_osx.fcm
+END
+arch-ifort_osx.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-ifort_osx.fcm
+END
+arch-ifort_linux_omp.fcm
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DCM/!svn/ver/1298/DCM/trunk/NEMOREF/NEMOGCM/ARCH/OLD/arch-ifort_linux_omp.fcm
+END

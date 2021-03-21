@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DCM/!svn/ver/1271/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/IOM
+END
+iom_rstdimg.F90
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DCM/!svn/ver/1271/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/IOM/iom_rstdimg.F90
+END
+in_out_manager.F90
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/DCM/!svn/ver/1232/DCM/trunk/DRAKKAR/NEMOGCM/NEMO/OPA_SRC/IOM/in_out_manager.F90
+END
